@@ -1,0 +1,163 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap');
+
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================= BASE ================= */
+@layer base {
+
+  body {
+    @apply bg-sentinel-bg text-sentinel-text font-mono min-h-screen w-full overflow-hidden;
+    background-image: radial-gradient(circle at 50% 50%, #0a1016 0%, #020408 100%);
+  }
+
+  /* Custom Selection */
+  ::selection {
+    @apply bg-sentinel-cyan/30 text-white;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #00f0ff4d;
+    /* sentinel-cyan with opacity */
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00f0ff80;
+  }
+
+  /* Form Elements Reset */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #00f0ff;
+    -webkit-box-shadow: 0 0 0px 1000px #0a1016 inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+/* ================= COMPONENTS ================= */
+@layer components {
+
+  .sentinel-border {
+    @apply border border-sentinel-border;
+  }
+
+  .sentinel-panel {
+    @apply bg-[#0a1016]/80 backdrop-blur-md border border-sentinel-border relative shadow-lg;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.02);
+  }
+
+  .sentinel-button {
+    @apply px-5 py-2 bg-gradient-to-r from-sentinel-cyan/10 to-transparent text-sentinel-cyan border border-sentinel-cyan/50 hover:from-sentinel-cyan/20 hover:to-sentinel-cyan/5 hover:border-sentinel-cyan hover:shadow-[0_0_15px_rgba(0, 240, 255, 0.4)] active:scale-95 transition-all duration-200 uppercase tracking-widest text-xs font-bold relative overflow-hidden;
+  }
+
+  /* Button shiny effect on hover */
+  .sentinel-button::after {
+    content: '';
+    @apply absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 transition-all duration-500;
+  }
+
+  .sentinel-button:hover::after {
+    @apply left-[100%];
+  }
+
+  .sentinel-input {
+    @apply bg-black/60 border border-sentinel-dim/30 text-sentinel-cyan px-4 py-3 focus:outline-none focus:border-sentinel-cyan focus:ring-1 focus:ring-sentinel-cyan/50 focus:shadow-[0_0_10px_rgba(0, 240, 255, 0.2)] placeholder-sentinel-dim/40 transition-all font-mono text-sm;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 5px rgba(0, 240, 255, 0.6), 0 0 10px rgba(0, 240, 255, 0.3);
+  }
+
+  .glow-text-red {
+    text-shadow: 0 0 5px rgba(255, 0, 60, 0.6), 0 0 10px rgba(255, 0, 60, 0.3);
+  }
+}
+
+/* ================= VISUAL EFFECTS ================= */
+
+/* CRT Properties */
+.scanline {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Moving Scan Bar */
+.scanline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 240, 255, 0.02) 51%, transparent 51%);
+  background-size: 100% 4px;
+  animation: scan-move 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan-move {
+  0% {
+    transform: translateY(-100vh);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Text Flicker Utility */
+.animate-text-flicker {
+  animation: text-flicker 3s infinite;
+}
+
+@keyframes text-flicker {
+
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 0.99;
+  }
+
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.4;
+  }
+}

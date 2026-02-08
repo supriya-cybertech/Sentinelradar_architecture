@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+pymongo
+motor
+pydantic
+pydantic-settings
+requests
+websockets
+python-dotenv
+httpx
+pytest
+sgp4
