@@ -1004,7 +1004,7 @@ copies of the Software...
 
 ```
 Project Lead: Supriya and Rohit
-Email: contact@sentinelradar.com
+Email: i.am.supriya15@gmail.com
 Website: https://sentinelradar.com
 GitHub: https://github.com/supriya-cybertech/Sentinelradar_architecture.git
 ```
