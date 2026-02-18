@@ -119,38 +119,84 @@ To bridge the gap between academic space data and tactical visualization, provid
 
 ### System Overview
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Client Layer (React/Vite)                 │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ Radar Dashboard │ Analytics │ Satellite Intel │ Auth│   │
-│  │ Real-time Updates via WebSocket                     │   │
-│  └─────────────────────────────────────────────────────┘   │
-└────────────────────────┬────────────────────────────────────┘
-                         │ REST API + WebSocket
-┌────────────────────────▼────────────────────────────────────┐
-│               API Layer (FastAPI/Python)                     │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │ Auth Service │ NEO Pipeline │ Satellite Tracking    │  │
-│  │ Risk Engine  │ Analytics    │ Notification System   │  │
-│  └──────────────────────────────────────────────────────┘  │
-└────────────────────────┬────────────────────────────────────┘
-                         │ Data Access Layer
-┌────────────────────────▼────────────────────────────────────┐
-│            Data Layer (MongoDB Atlas + Cache)                │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │ Users │ NEOs │ Satellites │ Watchlists │ Analytics  │  │
-│  │ Redis Cache for High-Speed Access                    │  │
-│  └──────────────────────────────────────────────────────┘  │
-└────────────────────────┬────────────────────────────────────┘
-                         │ External APIs
-┌────────────────────────▼────────────────────────────────────┐
-│          External Data Sources                               │
-│  ├─ NASA NeoWS API (Asteroid Data)                          │
-│  ├─ TLE Database (Satellite Orbits)                         │
-│  ├─ JPL Horizons (Precise Ephemeris)                        │
-│  └─ Space-Track.org (Satellite Catalogs)                    │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "primaryColor": "#0B1A2A",
+    "primaryTextColor": "#E6F1FF",
+    "primaryBorderColor": "#1F4E79",
+    "lineColor": "#00BFFF",
+    "secondaryColor": "#112240",
+    "tertiaryColor": "#0A192F",
+    "fontFamily": "Orbitron, Arial"
+  }
+}}%%
+
+flowchart TB
+
+%% ================= CLIENT LAYER =================
+subgraph CL["🛰 CLIENT LAYER (React / Vite)"]
+    direction LR
+    UI1["Radar Dashboard"]
+    UI2["Analytics"]
+    UI3["Satellite Intel"]
+    UI4["Authentication"]
+    WS["Real-time WebSocket Stream"]
+end
+
+%% ================= API LAYER =================
+subgraph API["🚀 API LAYER (FastAPI / Python)"]
+    direction LR
+    A1["Auth Service"]
+    A2["NEO Processing Pipeline"]
+    A3["Satellite Tracking Engine"]
+    A4["Risk Assessment Engine"]
+    A5["Analytics Engine"]
+    A6["Notification System"]
+end
+
+%% ================= DATA LAYER =================
+subgraph DATA["🗄 DATA LAYER (MongoDB Atlas + Redis)"]
+    direction LR
+    D1["Users"]
+    D2["NEOs"]
+    D3["Satellites"]
+    D4["Watchlists"]
+    D5["Analytics Data"]
+    CACHE["Redis Cache (High-Speed Access)"]
+end
+
+%% ================= EXTERNAL SOURCES =================
+subgraph EXT["🌍 EXTERNAL SPACE DATA SOURCES"]
+    direction LR
+    E1["NASA NeoWS API"]
+    E2["TLE Orbital Database"]
+    E3["JPL Horizons Ephemeris"]
+    E4["Space-Track.org Catalog"]
+end
+
+%% ================= WORKFLOW =================
+
+CL -->|REST API + WebSocket| API
+API -->|Data Access Layer| DATA
+API -->|External Data Fetch| EXT
+
+%% Internal Service Flow
+A1 --> D1
+A2 --> D2
+A3 --> D3
+A4 --> D2
+A5 --> D5
+A6 --> D4
+CACHE --> D2
+
+%% Real-time Update Loop
+D2 --> WS
+WS --> UI1
+
+
 ```
 
 ### Backend Architecture (FastAPI)
