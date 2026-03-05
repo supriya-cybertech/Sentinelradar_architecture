@@ -18,7 +18,7 @@
 
 ### 🛰️ Real-time NEO Monitoring • 📊 Risk Intelligence • 🔐 Military-Grade Security
 
-[View Demo]((#-Demo)(https://sentinelradar-architecture.vercel.app)) • [Documentation](#-documentation) • [Get Started](#-quick-start) • [Architecture](#-technical-architecture)
+**[View Demo](https://sentinelradar-architecture.vercel.app)** •  📖 **[Documentation](#-documentation)** •  🚀 **[Get Started](#-quick-start)** •  🏗️ **[Architecture](#-technical-architecture)**
 
 </div>
 
