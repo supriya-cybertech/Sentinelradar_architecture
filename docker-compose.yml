@@ -13,7 +13,7 @@ services:
       - ./backend:/app
 
   frontend:
-    build:
+    build: 
       context: ./frontend
       dockerfile: Dockerfile
     ports:
